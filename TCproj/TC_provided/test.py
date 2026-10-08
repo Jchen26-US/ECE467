@@ -11,16 +11,10 @@ TOKEN_RE = re.compile(r"[A-Za-z0-9']+")
 
 
 def tokenize(text):
-    """Use the same tokenizer as the training program."""
     return TOKEN_RE.findall(text.lower())
 
 
-def resolve_path(list_file, document_path):
-    """
-    Try the path exactly as written first.
-    If it does not exist, interpret it relative to the directory
-    containing the test-list file.
-    """
+def resolve_path(list_file, document_path): #locates path, if not found looks for it relative to directory
     if os.path.exists(document_path):
         return document_path
 

@@ -9,7 +9,8 @@ from collections import Counter, defaultdict
 
 TOKEN_RE = re.compile(r"[A-Za-z0-9']+")
 
-"""
+""" performance got worse when ignoring common words
+
 STOP_WORDS = { #list of ignored words
     "the", "a", "an", "and", "or", "but",
     "of", "to", "in", "on", "for", "with",
@@ -25,12 +26,7 @@ def tokenize(text):
     #return [word for word in tokens if word not in STOP_WORDS]
 
 
-def resolve_path(list_file, document_path):
-    """
-    Try the path exactly as written first.
-    If it does not exist, interpret it relative to the directory
-    containing the training-list file.
-    """
+def resolve_path(list_file, document_path):#finds path relative to doc
     if os.path.exists(document_path):
         return document_path
 
@@ -44,13 +40,10 @@ def resolve_path(list_file, document_path):
 
 
 def train_naive_bayes(training_file, model_file, alpha=1.0):
-    # Number of documents in each category.
     category_doc_counts = Counter()
 
-    # Total number of word tokens observed in each category.
     category_token_totals = Counter()
 
-    # word_counts[category][word] = number of occurrences.
     word_counts = defaultdict(Counter)
 
     vocabulary = set()
