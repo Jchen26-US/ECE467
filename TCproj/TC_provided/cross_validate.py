@@ -87,9 +87,6 @@ def make_stratified_folds(data, k=5, seed=42):
 
 
 def train_naive_bayes(training_data, labels_file, alpha=1.0):
-    """
-    Train Multinomial Naive Bayes manually.
-    """
     category_doc_counts = Counter()
     category_token_totals = Counter()
     word_counts = defaultdict(Counter)
@@ -198,20 +195,59 @@ def evaluate(model, validation_data, labels_file):
 
 
 def print_confusion_matrix(confusion, categories):
+    width = 10
+
+    # Compute per-class metrics first so F1 can appear in each row
+    recalls = {}
+    precisions = {}
+    f1s = {}
+
+    for category in categories:
+        row_total = sum(confusion[category][p] for p in categories)
+        col_total = sum(confusion[a][category] for a in categories)
+        true_positives = confusion[category][category]
+
+        recalls[category] = true_positives / row_total if row_total else 0.0
+        precisions[category] = true_positives / col_total if col_total else 0.0
+
+        p = precisions[category]
+        r = recalls[category]
+        f1s[category] = 2 * p * r / (p + r) if (p + r) else 0.0
+
     print("Confusion matrix (rows = actual, columns = predicted):")
 
-    print(f"{'':10}", end="")
+    # Header
+    print(f"{'':{width}}", end="")
     for category in categories:
-        print(f"{category:10}", end="")
-    print()
+        print(f"{category:>{width}}", end="")
+    print(f"{'Recall':>{width}}{'F1':>{width}}")
 
+    # Rows
     for actual in categories:
-        print(f"{actual:10}", end="")
+        print(f"{actual:{width}}", end="")
 
         for predicted in categories:
-            print(f"{confusion[actual][predicted]:10}", end="")
+            print(f"{confusion[actual][predicted]:>{width}}", end="")
 
-        print()
+        print(f"{recalls[actual] * 100:>{width - 1}.2f}%", end="")
+        print(f"{f1s[actual] * 100:>{width - 1}.2f}%")
+
+    # Precision row
+    print(f"{'Precision':{width}}", end="")
+    for predicted in categories:
+        print(f"{precisions[predicted] * 100:>{width - 1}.2f}%", end="")
+    print()
+
+    # Macro averages
+    n = len(categories)
+    macro_precision = sum(precisions.values()) / n
+    macro_recall = sum(recalls.values()) / n
+    macro_f1 = sum(f1s.values()) / n
+
+    print()
+    print(f"Macro-averaged precision: {macro_precision * 100:.2f}%")
+    print(f"Macro-averaged recall:    {macro_recall * 100:.2f}%")
+    print(f"Macro-averaged F1:        {macro_f1 * 100:.2f}%")
 
 
 def cross_validate(labels_file, k=5, alpha=0.1, seed=42):
@@ -232,7 +268,6 @@ def cross_validate(labels_file, k=5, alpha=0.1, seed=42):
     all_confusion = defaultdict(Counter)
 
     categories = sorted({label for _, label in data})
-
     print(f"Documents: {len(data)}")
     print(f"Categories: {', '.join(categories)}")
     print(f"Folds: {k}")
@@ -301,7 +336,7 @@ def main():
     if len(sys.argv) >= 4:
         alpha = float(sys.argv[3])
     else:
-        alpha = 1.0
+        alpha = 0.1
 
     if len(sys.argv) >= 5:
         seed = int(sys.argv[4])

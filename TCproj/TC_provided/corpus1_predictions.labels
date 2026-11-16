@@ -8,7 +8,7 @@
 ./corpus1/test/15844.article Str
 ./corpus1/test/44977.article Pol
 ./corpus1/test/44507.article Str
-./corpus1/test/33853.article Dis
+./corpus1/test/33853.article Oth
 ./corpus1/test/15357.article Str
 ./corpus1/test/33402.article Dis
 ./corpus1/test/14471.article Str
@@ -64,7 +64,7 @@
 ./corpus1/test/26277.article Cri
 ./corpus1/test/31627.article Str
 ./corpus1/test/33123.article Oth
-./corpus1/test/46243.article Str
+./corpus1/test/46243.article Cri
 ./corpus1/test/24273.article Str
 ./corpus1/test/13901.article Cri
 ./corpus1/test/27443.article Str
@@ -194,7 +194,7 @@
 ./corpus1/test/15216.article Str
 ./corpus1/test/29300.article Pol
 ./corpus1/test/16740.article Str
-./corpus1/test/24716.article Pol
+./corpus1/test/24716.article Cri
 ./corpus1/test/16042.article Dis
 ./corpus1/test/32354.article Pol
 ./corpus1/test/16571.article Pol
@@ -369,7 +369,7 @@
 ./corpus1/test/32371.article Pol
 ./corpus1/test/16157.article Str
 ./corpus1/test/06694.article Dis
-./corpus1/test/14758.article Str
+./corpus1/test/14758.article Dis
 ./corpus1/test/34120.article Pol
 ./corpus1/test/05423.article Dis
 ./corpus1/test/32207.article Dis
@@ -401,7 +401,7 @@
 ./corpus1/test/25519.article Oth
 ./corpus1/test/15177.article Str
 ./corpus1/test/05418.article Dis
-./corpus1/test/28781.article Pol
+./corpus1/test/28781.article Oth
 ./corpus1/test/29889.article Pol
 ./corpus1/test/06772.article Dis
 ./corpus1/test/15221.article Str

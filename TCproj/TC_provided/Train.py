@@ -9,7 +9,7 @@ from collections import Counter, defaultdict
 
 TOKEN_RE = re.compile(r"[A-Za-z0-9']+")
 
-""" performance got worse when ignoring common words
+""" performance got worse when ignoring common words left this list here in case of future testing
 
 STOP_WORDS = { #list of ignored words
     "the", "a", "an", "and", "or", "but",
@@ -23,7 +23,6 @@ STOP_WORDS = { #list of ignored words
 
 def tokenize(text):
     return TOKEN_RE.findall(text.lower())
-    #return [word for word in tokens if word not in STOP_WORDS]
 
 
 def resolve_path(list_file, document_path):#finds path relative to doc
