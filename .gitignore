@@ -1,1 +1,4 @@
-./LSTMproj/treebank_3/*
+
+LSTMproj/treebank_3/*
+*.zip
+LSTMproj/treebank_3_LDC99T42.tgz
